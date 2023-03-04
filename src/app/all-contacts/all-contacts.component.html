@@ -1,0 +1,72 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <!-- Main heading of the page -->
+            <h1>Online Contact Application
+                <!-- Add contact button -->
+                <a class="btn btn-success ms-3" routerLink="add-contact">
+                    <i class="fa fa-user-plus me-2"></i> &nbsp;
+                    Add New
+                </a>
+
+            </h1>
+            <!-- Dummy data -->
+            <p style="text-align: justify;">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi, totam hic architecto tempora natus
+                assumenda officiis animi eaque, earum voluptas dicta maiores, vero perspiciatis? Dolores veniam
+                quibusdam error explicabo quam?
+            </p>
+            <!-- Search box -->
+            <div class="row">
+                <div class="col-lg-6">
+                    <input type="text" [(ngModel)]="searchKey" class="form-control" placeholder="Search Contact Here">
+                </div>
+                <div class="col-lg-6"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Cards -->
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6 mb-3" *ngFor="let contact of allContacts | filter :searchKey :'name'">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-lg-3">
+                            <!-- image -->
+                            <img class="contact-image" [src]="contact.photo" alt="contact image">
+                        </div>
+                        <div class="col-lg-8">
+                            <!-- contact details -->
+                            <ul class="list-group">
+                                <li class="list-group-item">name : <span class="fw-bolder">{{contact.name}}</span></li>
+                                <li class="list-group-item">Mobile : <span>{{contact.mobile}}</span></li>
+                                <li class="list-group-item">Email : <span>{{contact.email}}</span></li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-1 d-flex flex-column justify-content-center align-items-center">
+                            <!-- actions -->
+
+                            <!-- view -->
+                            <a routerLink="view-contact/{{contact.id}}" class="btn btn-success mb-1">
+                                <i class="fa fa-solid fa-eye"></i>
+                            </a>
+                            <!-- edit -->
+                            <a routerLink="edit-contact/{{contact.id}}" class="btn btn-warning mb-1">
+                                <i class="fa fa-solid fa-pen"></i>
+                            </a>
+                            <!-- delete -->
+                            <button (click)="deleteContact(contact.id)" class="btn btn-danger">
+                                <i class="fa fa-solid fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6"></div>
+    </div>
+</div>

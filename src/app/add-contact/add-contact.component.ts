@@ -1,0 +1,37 @@
+import { group } from '@angular/animations';
+import { Component, OnInit } from '@angular/core';
+import { Route, Router } from '@angular/router';
+import { MyContact } from 'src/models/myContact';
+import { ApiService } from '../services/api.service';
+
+@Component({
+  selector: 'app-add-contact',
+  templateUrl: './add-contact.component.html',
+  styleUrls: ['./add-contact.component.css']
+})
+export class AddContactComponent implements OnInit {
+
+  // variable to hold group data from api call
+  groups:any = []
+  contact:MyContact = {}
+
+  constructor(private api:ApiService, private addContactRouter:Router) {
+    this.contact.groupId = 'Select a Group'
+    // this.contact.photo = 'https://t3.ftcdn.net/jpg/01/18/01/98/360_F_118019822_6CKXP6rXmVhDOzbXZlLqEM2ya4HhYzSV.jpg'
+  }
+
+  ngOnInit(): void {
+    this.api.allGroups().subscribe((result:any)=>{
+      console.log(result);
+      
+      this.groups = result
+    })
+  }
+
+  addContact(contact:any) {
+    this.api.addContact(contact).subscribe((data:any)=>{
+      alert('New contact added successfully')
+      this.addContactRouter.navigateByUrl('')
+    })
+  }
+}
